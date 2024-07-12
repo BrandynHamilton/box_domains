@@ -332,8 +332,13 @@ def update_output_div(n_clicks, domain_prefix):
 
 
 # Run the app
-port = int(os.environ.get("PORT", 8050))
+
+
+local_host='127.0.0.1'
+
+host='0.0.0.0'
 
 # Run the app
 if __name__ == '__main__':
-    app.run_server(debug=True, use_reloader=False, host='127.0.0.1', port=port)
+    port = int(os.environ.get("PORT", 8050))
+    app.run_server(debug=True, use_reloader=False, host=host, port=port)
