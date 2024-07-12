@@ -1,0 +1,10 @@
+pandas
+numpy
+requests
+Flipside
+python-dotenv
+datetime
+plotly
+scikit-learn
+dash
+dash-table
