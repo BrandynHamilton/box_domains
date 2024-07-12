@@ -1,7 +1,11 @@
 import pandas as pd
 from dash import Dash, html, dcc, Input, Output, State, callback
 from dash import dash_table
-from data_processing import key_metrics, sales_metrics, listings_metrics, mints_metrics, mint_to_sales_fig, listing_to_sales_fig, daily_sales_fig, daily_vol_fig, highest_selling_domains_fig, monthly_box_sales_metrics, latest_box_domains_sales, highest_selling_domains, listings_growth_rate_fig, historical_listing_to_sales, latest_box_listings, daily_mint_metrics_fig, latest_box_domains_mints, model_prep, value_domain        
+from data_processing import data_processing 
+
+
+key_metrics, sales_metrics, listings_metrics, mints_metrics, mint_to_sales_fig, listing_to_sales_fig, daily_sales_fig, daily_vol_fig, highest_selling_domains_fig, monthly_box_sales_metrics, latest_box_domains_sales, highest_selling_domains, listings_growth_rate_fig, historical_listing_to_sales, latest_box_listings, daily_mint_metrics_fig, latest_box_domains_mints, model_prep, value_domain = data_processing()
+
 
 external_stylesheets = [
     'https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css', 
@@ -324,6 +328,7 @@ def update_output_div(n_clicks, domain_prefix):
         html.Div(f'Domain: {domain}', style={'font-weight': 'bold'}),
         html.Div(f'Estimated Value: ${round(domain_value, 2):,.2f}')
     ])
+
 
 # Run the app
 if __name__ == '__main__':

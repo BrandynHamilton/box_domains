@@ -1,4 +1,4 @@
-mints = """
+mints_query = """
 
 SELECT
     DATE_TRUNC('HOUR', BLOCK_TIMESTAMP) AS day, tokenid, tx_hash
@@ -11,7 +11,7 @@ SELECT
     block_timestamp desc
 """
 
-sales = """
+sales_query = """
 
   SELECT
     DATE_TRUNC('HOUR', BLOCK_TIMESTAMP) AS day, tokenid, tx_hash, price
@@ -22,7 +22,7 @@ sales = """
     AND event_type = 'sale'
 """
 
-eth_price = """
+eth_price_query = """
 
 SELECT
   hour AS day,
