@@ -289,55 +289,55 @@ def flipside_api_results(query):
 # %%
 
 def data_processing():
-    mint_df = flipside_api_results(mints_query)
-    mint_df.to_csv('data/mint_data.csv')
+    # mint_df = flipside_api_results(mints_query)
+    # mint_df.to_csv('data/mint_data.csv')
 
     # %% [markdown]
-    # mint_df = pd.read_csv('data/mint_data.csv')
-    # mint_df
+    mint_df = pd.read_csv('data/mint_data.csv')
+    mint_df
 
     # %%
-    sales_df = flipside_api_results(sales_query)
-    sales_df.to_csv('data/sales_data.csv')
+    # sales_df = flipside_api_results(sales_query)
+    # sales_df.to_csv('data/sales_data.csv')
 
 
     # %% [markdown]
-    # sales_df = pd.read_csv('data/sales_data.csv')
-    # sales_df
+    sales_df = pd.read_csv('data/sales_data.csv')
+    sales_df
 
     # %%
-    eth_usd_df = flipside_api_results(eth_price_query)
-    eth_usd_df.to_csv('data/eth_usd.csv')
+    # eth_usd_df = flipside_api_results(eth_price_query)
+    # eth_usd_df.to_csv('data/eth_usd.csv')
 
 
     # %% [markdown]
-    # eth_usd_df = pd.read_csv('data/eth_usd.csv')
-    # eth_usd_df
+    eth_usd_df = pd.read_csv('data/eth_usd.csv')
+    eth_usd_df
 
     # %% [markdown]
-    events_df = fetch_all_events(api_key= opensea_api_key)
+    # events_df = fetch_all_events(api_key= opensea_api_key)
     # events_df.to_json('data/events_data.json', orient='records', date_format='iso')
     # 
 
     # %%
-    # events_df = pd.read_json('data/events_data.json', orient='records')
+    events_df = pd.read_json('data/events_data.json', orient='records')
     events_df = events_df.dropna()
 
     # %% [markdown]
-    descriptions_df = fetch_all_descriptions(api_key= opensea_api_key)
+    # descriptions_df = fetch_all_descriptions(api_key= opensea_api_key)
     # descriptions_df.to_json('data/descriptions_data.json', orient='records', date_format='iso')
 
     # %%
-    # descriptions_df = pd.read_json('data/descriptions_data.json', orient='records')
+    descriptions_df = pd.read_json('data/descriptions_data.json', orient='records')
     descriptions_df = descriptions_df.dropna()
     descriptions_df['name'].tail(20)
 
     # %% [markdown]
-    listings_df = fetch_listings(api_key= opensea_api_key, delay_between_requests=1)
+    # listings_df = fetch_listings(api_key= opensea_api_key, delay_between_requests=1)
     # listings_df.to_json('data/listings_data.json', orient='records', date_format='iso')
 
     # %%
-    # listings_df = pd.read_json('data/listings_data.json', orient='records')
+    listings_df = pd.read_json('data/listings_data.json', orient='records')
     listings_df = listings_df.dropna()
     listings_df
 
@@ -531,7 +531,7 @@ def data_processing():
     sales_with_names
 
     # %% [markdown]
-    # sales_with_names.dropna(inplace=True)
+    sales_with_names.dropna(inplace=True)
 
     # %%
     box_domains_sales = sales_with_names[sales_with_names['name'].str.endswith('.box')]
