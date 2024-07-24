@@ -39,7 +39,7 @@ pd.options.display.float_format = '{:,.2f}'.format
 
 
 # %%
-opensea_api_key = os.getenv('opensea_api_key')
+opensea_api_key = os.getenv('OPENSEA_API_KEY')
 
 # %% [markdown]
 # ***Listing Data***
