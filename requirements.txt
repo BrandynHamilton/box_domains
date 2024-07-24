@@ -8,3 +8,4 @@ plotly
 scikit-learn
 dash
 dash-table
+apscheduler

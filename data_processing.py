@@ -108,7 +108,7 @@ def fetch_all_descriptions(api_key, delay_between_requests=1):
         "accept": "application/json",
         "x-api-key": api_key
     }
-    params = {"limit": 100}
+    params = {"limit": 200}
 
     all_descriptions = []
 
@@ -315,28 +315,30 @@ def data_processing():
     # eth_usd_df
 
     # %% [markdown]
-    # events_df = fetch_all_events(api_key= opensea_api_key)
+    events_df = fetch_all_events(api_key= opensea_api_key)
     # events_df.to_json('data/events_data.json', orient='records', date_format='iso')
     # 
 
     # %%
-    events_df = pd.read_json('data/events_data.json', orient='records')
-    events_df
+    # events_df = pd.read_json('data/events_data.json', orient='records')
+    events_df = events_df.dropna()
 
     # %% [markdown]
-    # descriptions_df = fetch_all_descriptions(api_key= opensea_api_key)
+    descriptions_df = fetch_all_descriptions(api_key= opensea_api_key)
     # descriptions_df.to_json('data/descriptions_data.json', orient='records', date_format='iso')
 
     # %%
-    descriptions_df = pd.read_json('data/descriptions_data.json', orient='records')
+    # descriptions_df = pd.read_json('data/descriptions_data.json', orient='records')
+    descriptions_df = descriptions_df.dropna()
     descriptions_df['name'].tail(20)
 
     # %% [markdown]
-    # listings_df = fetch_listings(api_key= opensea_api_key, delay_between_requests=1)
+    listings_df = fetch_listings(api_key= opensea_api_key, delay_between_requests=1)
     # listings_df.to_json('data/listings_data.json', orient='records', date_format='iso')
 
     # %%
-    listings_df = pd.read_json('data/listings_data.json', orient='records')
+    # listings_df = pd.read_json('data/listings_data.json', orient='records')
+    listings_df = listings_df.dropna()
     listings_df
 
     # %%
@@ -390,6 +392,7 @@ def data_processing():
     listings_with_names
 
     # %%
+    listings_with_names = listings_with_names.dropna()
     box_listings = listings_with_names[listings_with_names['name'].str.endswith('.box')]
     box_listings
 
@@ -429,6 +432,8 @@ def data_processing():
     # %%
     sales = sales.merge(descriptions_df, how='left', on='tokenid')
     sales.drop(columns=['order_type', 'chain','start_date','expiration_date','asset','maker','is_private_listing','protocol_address','criteria'], inplace=True)
+    sales = sales.dropna()
+    bids = bids.dropna()
 
     # %%
     box_sales_os = sales[sales['name'].str.endswith('.box')]
@@ -581,6 +586,8 @@ def data_processing():
 
     # %%
     listing_price_to_sale_avg_pct_change = closest_listings['percent_change'].mean()
+    listing_price_to_sale_avg_pct_change = 0 if pd.isna(listing_price_to_sale_avg_pct_change) else listing_price_to_sale_avg_pct_change
+
     print(listing_price_to_sale_avg_pct_change)
 
     # %%

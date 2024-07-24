@@ -3,10 +3,43 @@ import pandas as pd
 from dash import Dash, html, dcc, Input, Output, State, callback
 from dash import dash_table
 from data_processing import data_processing 
+from apscheduler.schedulers.background import BackgroundScheduler
 
 
-key_metrics, sales_metrics, listings_metrics, mints_metrics, mint_to_sales_fig, listing_to_sales_fig, daily_sales_fig, daily_vol_fig, highest_selling_domains_fig, monthly_box_sales_metrics, latest_box_domains_sales, highest_selling_domains, listings_growth_rate_fig, historical_listing_to_sales, latest_box_listings, daily_mint_metrics_fig, latest_box_domains_mints, model_prep, value_domain = data_processing()
+# Global variables to store the data
+key_metrics, sales_metrics, listings_metrics, mints_metrics = None, None, None, None
+mint_to_sales_fig, listing_to_sales_fig, daily_sales_fig, daily_vol_fig = None, None, None, None
+highest_selling_domains_fig, monthly_box_sales_metrics = None, None
+latest_box_domains_sales, highest_selling_domains = None, None
+listings_growth_rate_fig, historical_listing_to_sales = None, None
+latest_box_listings, daily_mint_metrics_fig = None, None
+latest_box_domains_mints, model_prep, value_domain = None, None, None
 
+def update_data():
+    global key_metrics, sales_metrics, listings_metrics, mints_metrics
+    global mint_to_sales_fig, listing_to_sales_fig, daily_sales_fig, daily_vol_fig
+    global highest_selling_domains_fig, monthly_box_sales_metrics
+    global latest_box_domains_sales, highest_selling_domains
+    global listings_growth_rate_fig, historical_listing_to_sales
+    global latest_box_listings, daily_mint_metrics_fig
+    global latest_box_domains_mints, model_prep, value_domain
+
+    # Fetch the latest data
+    (key_metrics, sales_metrics, listings_metrics, mints_metrics,
+     mint_to_sales_fig, listing_to_sales_fig, daily_sales_fig, daily_vol_fig,
+     highest_selling_domains_fig, monthly_box_sales_metrics,
+     latest_box_domains_sales, highest_selling_domains,
+     listings_growth_rate_fig, historical_listing_to_sales,
+     latest_box_listings, daily_mint_metrics_fig,
+     latest_box_domains_mints, model_prep, value_domain) = data_processing()
+
+# Create a scheduler to update data periodically
+scheduler = BackgroundScheduler()
+scheduler.add_job(update_data, 'interval', hours=24)
+scheduler.start()
+
+# Run update_data once to initialize the data
+update_data()
 
 external_stylesheets = [
     'https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css', 
